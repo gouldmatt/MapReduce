@@ -1,14 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+
+bool sortDescending(const pair<string,int> &a, const pair<string,int> &b);
 
 int main(){
     string data;
     string word;
     ifstream f;
     vector<string> words;
+    vector< pair <string,int> > wordCountPairs;
     int wordCount = 1; //at least 1 word if file isn't empty
     int numOfWords = 0;
 
@@ -37,18 +41,28 @@ int main(){
         
         if(word!=words[i]){
             //Previous word isn't the same as the next in vector
-            cout << "\"" << word << "\"" << " appeared " << wordCount << " times.\n";
+            wordCountPairs.push_back(make_pair(word, wordCount));
+            //cout << "\"" << word << "\"" << " appeared " << wordCount << " times.\n";
             wordCount = 0;
             word = words[i]; //test the next word
         }
         wordCount++;
     }
 
-    /* //Print words
-    for (auto&& word : words){
-        cout << word << '\n';
-    } */
+    sort(wordCountPairs.begin(), wordCountPairs.end(), sortDescending); //sort by descending counts
+    
+    for (int i=0; i<wordCountPairs.size(); i++) 
+    { 
+        cout << "\"" << wordCountPairs[i].first << "\""
+        << " appeared " << wordCountPairs[i].second << " times.\n"; 
+    } 
 
     f.close();
     return 0;
 }
+
+bool sortDescending(const pair<string,int> &a, 
+              const pair<string,int> &b)
+{ 
+    return (a.second > b.second); 
+} 
