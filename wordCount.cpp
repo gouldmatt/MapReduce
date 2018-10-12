@@ -18,7 +18,7 @@ int main(){
     //Open file 
     f.open("./test.txt"); 
     if (!f) {
-        cerr << "Unable to open file datafile.txt";
+        cerr << "Unable to open the file";
         exit(1);
     }
 
