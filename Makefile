@@ -4,10 +4,10 @@
 # compiler flags:
 #  -g    adds debugging information to the executable file
 #  -Wall turns on most, but not all, compiler warnings
-CFLAGS  = -Wall
+CFLAGS  = -Wall -std=c++11
 
 output.o: host.o guestWordCount.o
-	g++ -std=c++11 host.o guestWordCount.o -o output
+	g++ host.o guestWordCount.o -o output
 	time ./output
 
 host.o: host.cpp
