@@ -27,7 +27,6 @@ int main(){
     //Create key value pairs with values all 1 and keys are each word
     wordPairs = map(inputReaderVec);
     wordPairsReduced = reduce(wordPairs); 
-
     output(wordPairsReduced);
 
     return 0; 

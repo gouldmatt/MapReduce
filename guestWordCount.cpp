@@ -28,8 +28,8 @@ vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
     string word;
     int count = 1;
 
-    word = wordPairs[0].first;
     sort(wordPairs.begin(), wordPairs.end());
+    word = wordPairs[0].first;
     
     for(int i=1; i<=wordPairs.size(); i++){
         if(word!=wordPairs[i].first){
