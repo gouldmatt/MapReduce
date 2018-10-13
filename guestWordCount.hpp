@@ -7,6 +7,6 @@ std::vector< std::pair <std::string,int> > map(std::vector<std::string> inputRea
 
 std::vector< std::pair <std::string,int> > reduce(std::vector< std::pair <std::string,int> > wordPairs); 
 
-void output(); 
+void output(std::vector< std::pair <std::string,int> > wordPairsReduced); 
 
 #endif

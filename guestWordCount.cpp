@@ -31,20 +31,21 @@ vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
     word = wordPairs[0].first;
     sort(wordPairs.begin(), wordPairs.end());
     
-
     for(int i=1; i<=wordPairs.size(); i++){
         if(word!=wordPairs[i].first){
-            cout << word << count << endl;
             wordPairsReduced.push_back(make_pair(word, count));
             count = 0;
             word = wordPairs[i].first;
         }
         count++;       
     }
-    
     return wordPairsReduced;
 }
 
-void output(){
-    
+void output(vector< pair <string,int> > wordPairsReduced){
+    for (int i=0; i<wordPairsReduced.size(); i++) 
+    { 
+        cout << "\"" << wordPairsReduced[i].first << "\""
+        << " appeared " << wordPairsReduced[i].second << " times.\n"; 
+    }
 }

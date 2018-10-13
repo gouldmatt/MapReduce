@@ -28,11 +28,7 @@ int main(){
     wordPairs = map(inputReaderVec);
     wordPairsReduced = reduce(wordPairs); 
 
-    for (int i=0; i<wordPairsReduced.size(); i++) 
-    { 
-        cout << "\"" << wordPairsReduced[i].first << "\""
-        << " has value " << wordPairsReduced[i].second << "\n"; 
-    }
+    output(wordPairsReduced);
 
     return 0; 
 }
