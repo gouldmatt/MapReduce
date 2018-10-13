@@ -23,8 +23,26 @@ vector< pair <string,int> > map(vector<string> inputReaderVec){
 
 }
 
-void reduce(){
+vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
+    vector< pair <string,int> > wordPairsReduced;
+    string word;
+    int count = 1;
 
+    word = wordPairs[0].first;
+    sort(wordPairs.begin(), wordPairs.end());
+    
+
+    for(int i=1; i<=wordPairs.size(); i++){
+        if(word!=wordPairs[i].first){
+            cout << word << count << endl;
+            wordPairsReduced.push_back(make_pair(word, count));
+            count = 0;
+            word = wordPairs[i].first;
+        }
+        count++;       
+    }
+    
+    return wordPairsReduced;
 }
 
 void output(){

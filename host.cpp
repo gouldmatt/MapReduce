@@ -11,6 +11,7 @@ int main(){
     ifstream file;
     vector<string> inputReaderVec;
     vector< pair <string,int> > wordPairs; //(key,value)
+    vector< pair <string,int> > wordPairsReduced;
 
     // read the input file and feed it into the input reader
     file.open("./test.txt"); 
@@ -25,12 +26,13 @@ int main(){
 
     //Create key value pairs with values all 1 and keys are each word
     wordPairs = map(inputReaderVec);
+    wordPairsReduced = reduce(wordPairs); 
 
-    /* for (int i=0; i<wordPairs.size(); i++) 
+    for (int i=0; i<wordPairsReduced.size(); i++) 
     { 
-        cout << "\"" << wordPairs[i].first << "\""
-        << " has value " << wordPairs[i].second << "\n"; 
-    } */ 
+        cout << "\"" << wordPairsReduced[i].first << "\""
+        << " has value " << wordPairsReduced[i].second << "\n"; 
+    }
 
     return 0; 
 }
