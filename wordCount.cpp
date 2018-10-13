@@ -7,7 +7,6 @@ using namespace std;
 bool sortDescending(const pair<string,int> &a, const pair<string,int> &b);
 
 int main(){
-    string data;
     string word;
     ifstream f;
     vector<string> words;

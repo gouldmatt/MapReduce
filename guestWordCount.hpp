@@ -1,7 +1,7 @@
 #ifndef GUESTWORDCOUNT_HPP
 #define GUESTWORDCOUNT_HPP
 
-void inputReader();
+std::vector<std::string> inputReader(std::ifstream& file);
 
 void map(); 
 
