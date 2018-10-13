@@ -3,7 +3,7 @@
 
 std::vector<std::string> inputReader(std::ifstream& file);
 
-void map(); 
+std::vector< std::pair <std::string,int> > map(std::vector<std::string> inputReaderVec); 
 
 void reduce(); 
 

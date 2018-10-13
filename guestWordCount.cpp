@@ -14,7 +14,12 @@ vector<string> inputReader(ifstream& file){
     return inputReaderVec; 
 }
 
-void map(){
+vector< pair <string,int> > map(vector<string> inputReaderVec){
+    vector< pair <string,int> > wordPairs;
+    for(int i=0; i<inputReaderVec.size(); i++){
+        wordPairs.push_back(make_pair(inputReaderVec[i], 1));
+    }
+    return wordPairs;
 
 }
 
