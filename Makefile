@@ -6,9 +6,15 @@
 #  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -Wall
 
-output.o: wordCount.cpp
-	g++  wordCount.cpp -std=c++11 -o output
+output.o: host.o guestWordCount.o
+	g++ -std=c++11 host.o guestWordCount.o -o output
 	time ./output
+
+host.o: host.cpp
+	g++ -c host.cpp
+
+guestWordCount.o: guestWordCount.cpp guestWordCount.hpp
+	g++ -c guestWordCount.cpp
 
 clean:
 	rm *.o output
