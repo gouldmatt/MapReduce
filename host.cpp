@@ -23,13 +23,14 @@ int main(){
     inputReaderVec = inputReader(file);
     file.close(); 
 
+    //Create key value pairs with values all 1 and keys are each word
     wordPairs = map(inputReaderVec);
 
-    for (int i=0; i<wordPairs.size(); i++) 
+    /* for (int i=0; i<wordPairs.size(); i++) 
     { 
         cout << "\"" << wordPairs[i].first << "\""
         << " has value " << wordPairs[i].second << "\n"; 
-    } 
+    } */ 
 
     return 0; 
 }
