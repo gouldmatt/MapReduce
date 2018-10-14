@@ -7,7 +7,7 @@
 CFLAGS  = -Wall -std=c++11
 
 output.o: host.o guestWordCount.o
-	g++ host.o guestWordCount.o -o output
+	g++  -std=c++11 -pthread host.o guestWordCount.o -o output
 	time ./output
 
 host.o: host.cpp

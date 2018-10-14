@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 #include "guestWordCount.hpp"
 
 using namespace std;
@@ -14,13 +15,8 @@ vector<string> inputReader(ifstream& file){
     return inputReaderVec; 
 }
 
-vector< pair <string,int> > map(vector<string> inputReaderVec){
-    vector< pair <string,int> > wordPairs;
-    for(int i=0; i<inputReaderVec.size(); i++){
-        wordPairs.push_back(make_pair(inputReaderVec[i], 1));
-    }
-    return wordPairs;
-
+pair <string,int> map(string word){
+    return std::pair<string,int>(word, 1);
 }
 
 vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
@@ -31,7 +27,7 @@ vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
     sort(wordPairs.begin(), wordPairs.end());
     word = wordPairs[0].first;
     
-    for(int i=1; i<=wordPairs.size(); i++){
+    for(int i=1; i<wordPairs.size(); i++){
         if(word!=wordPairs[i].first){
             wordPairsReduced.push_back(make_pair(word, count));
             count = 0;
