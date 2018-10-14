@@ -19,7 +19,8 @@ pair <string,int> map(string word){
     return std::pair<string,int>(word, 1);
 }
 
-vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
+pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
+    /*
     vector< pair <string,int> > wordPairsReduced;
     string word;
     int count = 1;
@@ -35,7 +36,8 @@ vector< pair <string,int> > reduce(vector< pair <string,int> > wordPairs){
         }
         count++;       
     }
-    return wordPairsReduced;
+    */
+    return std::pair<string,int>(wordPairGroup[0].first,wordPairGroup.size());
 }
 
 void output(vector< pair <string,int> > wordPairsReduced){
