@@ -3,10 +3,10 @@
 
 std::vector<std::string> inputReader(std::ifstream& file);
 
-void map(); 
+std::pair <std::string,int> map(std::string word); 
 
-void reduce(); 
+std::pair <std::string,int> reduce(std::vector< std::pair <std::string,int> > wordPairGroup); 
 
-void output(); 
+void output(std::vector< std::pair <std::string,int> > wordPairsReduced); 
 
 #endif
