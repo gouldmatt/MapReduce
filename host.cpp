@@ -44,6 +44,8 @@ int main(){
        machines[i]=thread(machineMap,std::ref(keyValue[i]),std::ref(inputReaderVec),inputReaderVecSize,i,numberOfMachines);
     }
 
+    inputReaderVec.clear(); 
+
     // stop multithreading
     for(int i=0; i<numberOfMachines; i++){
         machines[i].join();
@@ -54,6 +56,7 @@ int main(){
         for (int j=0; j<keyValue[i].size(); j++){
             totalKeyValue.push_back(pair<string,int>(keyValue[i][j].first,keyValue[i][j].second));
         }
+        keyValue[i].clear(); 
     }    
 
     sort(totalKeyValue.begin(), totalKeyValue.end());
@@ -69,11 +72,15 @@ int main(){
             }
         }
     }
+
+    totalKeyValue.clear(); 
     
     // start multithreading
     for(int i=0; i<numberOfMachines; i++){ 
        machines[i]=thread(machineReduce,std::ref(keyValueReduced[i]),groupedKeyValue,i,numberOfMachines);
     }
+
+    groupedKeyValue.clear(); 
 
     // stop multithreading
     for(int i=0; i<numberOfMachines; i++){
@@ -85,6 +92,7 @@ int main(){
         for (int j=0; j<keyValueReduced[i].size(); j++){
             keyValueFinal.push_back(pair<string,int>(keyValueReduced[i][j].first,keyValueReduced[i][j].second));
         }
+        keyValueReduced[i].clear(); 
     }    
 
     //output 
