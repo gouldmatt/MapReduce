@@ -4,7 +4,6 @@
 #include <vector>
 #include <thread> 
 #include <algorithm> 
-#include <unordered_map> 
 #include "guestWordCount.hpp"
 
 using namespace std;
@@ -29,7 +28,7 @@ int main(){
     int groupNum = 0;
 
     // read the input file and feed it into the input reader
-    file.open("./test2.txt"); 
+    file.open("./giant.txt"); 
     if (!file){
         cerr << "Unable to open file";
         exit(1);    }

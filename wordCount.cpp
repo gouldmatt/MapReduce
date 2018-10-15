@@ -15,7 +15,7 @@ int main(){
     int numOfWords = 0;
 
     //Open file 
-    f.open("./test.txt"); 
+    f.open("./giant.txt"); 
     if (!f) {
         cerr << "Unable to open the file";
         exit(1);

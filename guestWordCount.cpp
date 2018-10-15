@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <algorithm>
 #include "guestWordCount.hpp"
 
 using namespace std;
@@ -20,7 +19,12 @@ pair <string,int> map(string word){
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
-    return std::pair<string,int>(wordPairGroup[0].first,wordPairGroup.size());
+    int sum = 0; 
+    for (int i = 0; i < wordPairGroup.size(); i++){
+        sum += wordPairGroup[i].second; 
+    }
+
+    return std::pair<string,int>(wordPairGroup[0].first,sum);
 }
 
 void output(vector< pair <string,int> > wordPairsReduced){
