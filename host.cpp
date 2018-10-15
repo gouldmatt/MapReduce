@@ -19,10 +19,10 @@ int main(){
     thread machines[numberOfMachines];
     ifstream file;
     vector<string> inputReaderVec;
-    vector< pair <string,int> > keyValue[4]; //(key,value)
+    vector< pair <string,int> > keyValue[numberOfMachines]; //(key,value)
     vector< pair<string,int> > totalKeyValue;
     vector< vector < pair<string,int> > > groupedKeyValue;
-    vector< pair <string,int> > keyValueReduced[4];
+    vector< pair <string,int> > keyValueReduced[numberOfMachines];
     vector< pair <string,int> > keyValueFinal; 
 
     int inputReaderVecSize = 0;
@@ -94,13 +94,17 @@ int main(){
 }
 
 void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum,int numberOfMachines){
-    for(int i=machineNum; i < inputReaderVecSize; i+=numberOfMachines){
-        keyValuePair.push_back(pair<string,int> (map(inputReaderVec[i]))); 
-    } 
+    if(machineNum < inputReaderVecSize){
+        for(int i=machineNum; i < inputReaderVecSize; i+=numberOfMachines){
+            keyValuePair.push_back(pair<string,int> (map(inputReaderVec[i]))); 
+        }
+    }
 }
 
 void machineReduce(vector< pair <string,int> > &keyValueReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum, int numberOfMachines){
-      for(int i=machineNum; i < groupedKeyValue.size(); i+=numberOfMachines){
-        keyValueReduced.push_back(pair<string,int> (reduce(groupedKeyValue[i]))); 
-    } 
+    if(machineNum < groupedKeyValue.size()){
+        for(int i=machineNum; i < groupedKeyValue.size(); i+=numberOfMachines){
+            keyValueReduced.push_back(pair<string,int> (reduce(groupedKeyValue[i]))); 
+        } 
+    }
 }
