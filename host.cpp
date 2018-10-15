@@ -10,7 +10,7 @@
 using namespace std;
 
 void machineMap( vector< pair <string,int> > &keyValuePair,vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum);
-void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < pair<string,int> > groupedKeyValue,int machineNum);
+void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum);
 
 
 int main(){
@@ -18,11 +18,13 @@ int main(){
     ifstream file;
     vector<string> inputReaderVec;
     vector< pair <string,int> > keyValue[4]; //(key,value)
-    vector < pair<string,int> > totalKeyValue;
-    vector < pair<string,int> > groupedKeyValue;
-    vector< pair <string,int> > wordPairsReduced;
-    unordered_multimap<string,int> keyValueHash;
+    vector< pair<string,int> > totalKeyValue;
+    vector< vector < pair<string,int> > > groupedKeyValue;
+    vector< pair <string,int> > keyValueReduced[4];
+    vector< pair <string,int> > keyValueFinal; 
+
     int inputReaderVecSize = 0;
+    int groupNum = 0;
 
     // read the input file and feed it into the input reader
     file.open("./test2.txt"); 
@@ -45,71 +47,45 @@ int main(){
         machines[i].join();
     }
 
-    /*
-
-    //place word pairs into hash table 
-    for (int i=0; i<4; i++){
-        for (int j=0; j<keyValue[i].size(); j++){
-            keyValueHash.insert(pair<string,int>(keyValue[i][j].first,keyValue[i][j].second));
-        }
-    }    
-	
-    unordered_multimap <string, int> :: iterator totalIt;
-    unordered_multimap <string, int> :: iterator secondIt;
-
-    std::pair<std::unordered_multimap<string, int>::iterator,std::unordered_multimap<string, int>::iterator> r;
-
-
-
-    // Iterate over the multimap
-    for(totalIt = keyValueHash.begin(); totalIt != keyValueHash.end(); totalIt++){
-        // find the number of times this key repeats 
-        cout << totalIt -> first << endl; 
-        r = keyValueHash.equal_range(totalIt->first);
-        for(unordered_multimap<string,int>::iterator it =r.first; it != r.second; it++){
-            groupedKeyValue.push_back(*it); 
-        
-        }
-        keyValueHash.erase(totalIt->first);
-    }
-	
-    for(int j; j< groupedKeyValue.size(); j++){
-        cout << endl << groupedKeyValue[j].first << endl << endl;
-    }
-    */
+    // place into one total vector
     for (int i=0; i<4; i++){
         for (int j=0; j<keyValue[i].size(); j++){
             totalKeyValue.push_back(pair<string,int>(keyValue[i][j].first,keyValue[i][j].second));
         }
     }    
 
-
-    string word;
-    int count = 1;
-
     sort(totalKeyValue.begin(), totalKeyValue.end());
-    word = totalKeyValue[0].first;
-    
-    for(int i=1; i<totalKeyValue.size(); i++){
-        if(word!=totalKeyValue[i].first){
-            // call threads
-          
-            word = totalKeyValue[i].first;
+
+    groupedKeyValue.push_back(vector <pair<string,int>>());
+    // create groups with common keys 
+    for(int i=0; i<totalKeyValue.size(); i++){
+        groupedKeyValue[groupNum].push_back(pair<string,int>(totalKeyValue[i].first,totalKeyValue[i].second));
+        if((totalKeyValue[i] != totalKeyValue[i+1]) || i == totalKeyValue.size()-1 ){
+            groupNum++; 
+            if(i != totalKeyValue.size()-1){
+                groupedKeyValue.push_back(vector <pair<string,int>>());
+            }
         }
-        groupedKeyValue.push_back(pair<string,int>(totalKeyValue[i].first,totalKeyValue[i].second));
     }
-
-
+    
     // start multithreading
     for(int i=0; i < 4; i++){ 
-       //machines[i]=thread();
+       machines[i]=thread(machineReduce,std::ref(keyValueReduced[i]),groupedKeyValue,i);
     }
 
     // stop multithreading
     for(int i=0; i<4; i++){
-        //machines[i].join();
+        machines[i].join();
     }
-
+    
+    
+    // place into one total final vector 
+    for (int i=0; i<4; i++){
+        for (int j=0; j<keyValueReduced[i].size(); j++){
+            keyValueFinal.push_back(pair<string,int>(keyValueReduced[i][j].first,keyValueReduced[i][j].second));
+        }
+    }    
+    
 
     /*
     //Create key value pairs with values all 1 and keys are each word
@@ -117,7 +93,7 @@ int main(){
     */
 
     //output 
-    output(wordPairsReduced);
+    output(keyValueFinal);
   
 
     return 0; 
@@ -129,6 +105,8 @@ void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& input
     } 
 }
 
-void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < pair<string,int> > groupedKeyValue,int machineNum){
-
+void machineReduce(vector< pair <string,int> > &keyValueReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum){
+      for(int i=machineNum; i < groupedKeyValue.size(); i+=4){
+        keyValueReduced.push_back(pair<string,int> (reduce(groupedKeyValue[i]))); 
+    } 
 }
