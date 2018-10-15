@@ -11,10 +11,10 @@ output.o: host.o guestWordCount.o
 	time ./output
 
 host.o: host.cpp
-	g++ -c host.cpp
+	g++ -c -std=c++11 host.cpp
 
 guestWordCount.o: guestWordCount.cpp guestWordCount.hpp
-	g++ -c guestWordCount.cpp
+	g++ -c -std=c++11 guestWordCount.cpp
 
 clean:
 	rm *.o output
