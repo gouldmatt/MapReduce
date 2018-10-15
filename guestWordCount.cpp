@@ -20,23 +20,6 @@ pair <string,int> map(string word){
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
-    /*
-    vector< pair <string,int> > wordPairsReduced;
-    string word;
-    int count = 1;
-
-    sort(wordPairs.begin(), wordPairs.end());
-    word = wordPairs[0].first;
-    
-    for(int i=1; i<wordPairs.size(); i++){
-        if(word!=wordPairs[i].first){
-            wordPairsReduced.push_back(make_pair(word, count));
-            count = 0;
-            word = wordPairs[i].first;
-        }
-        count++;       
-    }
-    */
     return std::pair<string,int>(wordPairGroup[0].first,wordPairGroup.size());
 }
 
