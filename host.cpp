@@ -9,12 +9,14 @@
 
 using namespace std;
 
-void machineMap( vector< pair <string,int> > &keyValuePair,vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum);
-void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum);
+void machineMap( vector< pair <string,int> > &keyValuePair,vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum,int numberOfMachines);
+void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum,int numberOfMachines);
 
 
 int main(){
-    thread machines[4];
+    int numberOfMachines = 4; 
+
+    thread machines[numberOfMachines];
     ifstream file;
     vector<string> inputReaderVec;
     vector< pair <string,int> > keyValue[4]; //(key,value)
@@ -38,17 +40,17 @@ int main(){
     inputReaderVecSize = inputReaderVec.size(); 
   
     // start multithreading
-    for(int i=0; i < 4; i++){ 
-       machines[i]=thread(machineMap,std::ref(keyValue[i]),std::ref(inputReaderVec),inputReaderVecSize,i);
+    for(int i=0; i<numberOfMachines; i++){ 
+       machines[i]=thread(machineMap,std::ref(keyValue[i]),std::ref(inputReaderVec),inputReaderVecSize,i,numberOfMachines);
     }
 
     // stop multithreading
-    for(int i=0; i<4; i++){
+    for(int i=0; i<numberOfMachines; i++){
         machines[i].join();
     }
 
     // place into one total vector
-    for (int i=0; i<4; i++){
+    for (int i=0; i<numberOfMachines; i++){
         for (int j=0; j<keyValue[i].size(); j++){
             totalKeyValue.push_back(pair<string,int>(keyValue[i][j].first,keyValue[i][j].second));
         }
@@ -69,44 +71,36 @@ int main(){
     }
     
     // start multithreading
-    for(int i=0; i < 4; i++){ 
-       machines[i]=thread(machineReduce,std::ref(keyValueReduced[i]),groupedKeyValue,i);
+    for(int i=0; i<numberOfMachines; i++){ 
+       machines[i]=thread(machineReduce,std::ref(keyValueReduced[i]),groupedKeyValue,i,numberOfMachines);
     }
 
     // stop multithreading
-    for(int i=0; i<4; i++){
+    for(int i=0; i<numberOfMachines; i++){
         machines[i].join();
     }
     
-    
     // place into one total final vector 
-    for (int i=0; i<4; i++){
+    for (int i=0; i<numberOfMachines; i++){
         for (int j=0; j<keyValueReduced[i].size(); j++){
             keyValueFinal.push_back(pair<string,int>(keyValueReduced[i][j].first,keyValueReduced[i][j].second));
         }
     }    
-    
-
-    /*
-    //Create key value pairs with values all 1 and keys are each word
-    wordPairsReduced = reduce(totalWordPairs); 
-    */
 
     //output 
     output(keyValueFinal);
   
-
     return 0; 
 }
 
-void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum){
-    for(int i=machineNum; i < inputReaderVecSize; i+=4){
+void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum,int numberOfMachines){
+    for(int i=machineNum; i < inputReaderVecSize; i+=numberOfMachines){
         keyValuePair.push_back(pair<string,int> (map(inputReaderVec[i]))); 
     } 
 }
 
-void machineReduce(vector< pair <string,int> > &keyValueReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum){
-      for(int i=machineNum; i < groupedKeyValue.size(); i+=4){
+void machineReduce(vector< pair <string,int> > &keyValueReduced,vector < vector < pair<string,int> > > groupedKeyValue,int machineNum, int numberOfMachines){
+      for(int i=machineNum; i < groupedKeyValue.size(); i+=numberOfMachines){
         keyValueReduced.push_back(pair<string,int> (reduce(groupedKeyValue[i]))); 
     } 
 }
