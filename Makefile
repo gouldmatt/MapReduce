@@ -15,13 +15,13 @@ outputMatrix.o: host.o guestMatrixMultiply.o
 	time ./outputMatrix
 
 host.o: host.cpp
-	g++ -c host.cpp
+	g++ -std=c++11 -pthread -c host.cpp
 
 guestWordCount.o: guestWordCount.cpp guestWordCount.hpp
-	g++ -c guestWordCount.cpp
+	g++ -std=c++11 -pthread -c guestWordCount.cpp
 
 guestMatrixMultiply.o: guestMatrixMultiply.cpp guestMatrixMultiply.hpp
-	g++ -c guestMatrixMultiply.cpp
+	g++ -std=c++11 -pthread -c guestMatrixMultiply.cpp
 
 clean:
 	rm *.o output
