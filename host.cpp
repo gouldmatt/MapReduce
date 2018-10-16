@@ -4,7 +4,9 @@
 #include <vector>
 #include <thread> 
 #include <algorithm> 
-#include "guestWordCount.hpp"
+#include <unordered_map> 
+//#include "guestWordCount.hpp"
+#include "guestMatrixMultiply.hpp"
 
 using namespace std;
 
@@ -28,7 +30,7 @@ int main(){
     int groupNum = 0;
 
     // read the input file and feed it into the input reader
-    file.open("./giant.txt"); 
+    file.open("./matrixTest.txt"); 
     if (!file){
         cerr << "Unable to open file";
         exit(1);    }
@@ -40,7 +42,7 @@ int main(){
   
     // start multithreading
     for(int i=0; i<numberOfMachines; i++){ 
-       machines[i]=thread(machineMap,ref(keyValue[i]),ref(inputReaderVec),inputReaderVecSize,i,numberOfMachines);
+       machines[i]=thread(machineMap,std::ref(keyValue[i]),std::ref(inputReaderVec),inputReaderVecSize,i,numberOfMachines);
     }
 
     inputReaderVec.clear(); 
@@ -60,14 +62,14 @@ int main(){
 
     sort(totalKeyValue.begin(), totalKeyValue.end());
 
-    groupedKeyValue.push_back(vector <pair<string,int> >());
+    groupedKeyValue.push_back(vector <pair<string,int>>());
     // create groups with common keys 
     for(int i=0; i<totalKeyValue.size(); i++){
         groupedKeyValue[groupNum].push_back(pair<string,int>(totalKeyValue[i].first,totalKeyValue[i].second));
         if((totalKeyValue[i] != totalKeyValue[i+1]) || i == totalKeyValue.size()-1 ){
             groupNum++; 
             if(i != totalKeyValue.size()-1){
-                groupedKeyValue.push_back(vector <pair<string,int> >());
+                groupedKeyValue.push_back(vector <pair<string,int>>());
             }
         }
     }

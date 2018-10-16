@@ -19,12 +19,7 @@ pair <string,int> map(string word){
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
-    int sum = 0; 
-    for (int i = 0; i < wordPairGroup.size(); i++){
-        sum += wordPairGroup[i].second; 
-    }
-
-    return std::pair<string,int>(wordPairGroup[0].first,sum);
+    return std::pair<string,int>(wordPairGroup[0].first,wordPairGroup.size());
 }
 
 void output(vector< pair <string,int> > wordPairsReduced){
