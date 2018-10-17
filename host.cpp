@@ -37,6 +37,7 @@ int main(){
     //Extract the words
     inputReaderVec = inputReader(file);
     file.close(); 
+    /*
     inputReaderVecSize = inputReaderVec.size(); 
   
     // start multithreading
@@ -99,6 +100,7 @@ int main(){
     output(keyValueFinal);
   
     return 0; 
+    */
 }
 
 void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum,int numberOfMachines){

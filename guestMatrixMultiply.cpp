@@ -36,14 +36,21 @@ vector<string> inputReader(ifstream& file){
             rowNum++; 
         }
     }
+
+    for(int i; i<inputReaderVec.size(); i++){
+        cout << inputReaderVec[i] << endl; 
+    }
         
     return inputReaderVec; 
 }
 
 pair <string,int> map(string element){
     for(int i = 0; i<element.size(); )
+    {
+
+    }
     
-    return // returns a column 
+    //return ;// returns a column 
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
