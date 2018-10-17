@@ -1,10 +1,8 @@
-
 #include <iostream> 
 #include <fstream>
 #include <vector>
 #include <thread> 
 #include <algorithm> 
-#include <unordered_map> 
 //#include "guestWordCount.hpp"
 #include "guestMatrixMultiply.hpp"
 
@@ -33,7 +31,8 @@ int main(){
     file.open("./matrixTest.txt"); 
     if (!file){
         cerr << "Unable to open file";
-        exit(1);    }
+        exit(1);    
+    }
     
     //Extract the words
     inputReaderVec = inputReader(file);

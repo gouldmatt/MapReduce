@@ -8,32 +8,42 @@ using namespace std;
 
 vector<string> inputReader(ifstream& file){
     vector<string> inputReaderVec;
-    string line; 
-    string temp; 
-    string temp2; 
+    string element; 
+    int rowNum = 0; 
+    int colNum = 0; 
 
-    while (!file.eof()){
-        cout << "test"; 
-        getline(file,line); 
-        for(int i = 0; i<line.size(); i++){
-            temp = string(1,line[i]); 
-            if(temp != "[" || temp != "]" || temp != ","){
-                temp2 += temp; 
-            } 
-            if (temp == ";"){ break; }
+    while(file >> element){
+        if(element == "A"){continue;}
+        if(element == "B"){break;}
+        if(element != ";"){
+            inputReaderVec.push_back("A:" + to_string(rowNum) + ":" + to_string(colNum) + ":" + element); 
+            colNum++; 
+        }else if(element == ";"){
+            colNum = 0; 
+            rowNum++; 
         }
-
     }
-    cout << temp2; 
-    // return matrix:row:col:value 
 
+    rowNum = 0; 
+    colNum = 0;
+
+    while(file >> element){
+        if(element != ";"){
+            inputReaderVec.push_back("B:" + to_string(rowNum) + ":" + to_string(colNum) + ":" + element); 
+            colNum++; 
+        }else if(element == ";"){
+            colNum = 0; 
+            rowNum++; 
+        }
+    }
+        
     return inputReaderVec; 
 }
 
-pair <string,int> map(string matrix){
+pair <string,int> map(string element){
+    for(int i = 0; i<element.size(); )
     
-    // map each matrix column and row vector to group for calc of spot in final matrix 
-    //return std::pair<string,int>(word, 1);
+    return // returns a column 
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
