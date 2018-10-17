@@ -8,19 +8,25 @@ using namespace std;
 
 vector<string> inputReader(ifstream& file){
     vector<string> inputReaderVec;
-    string matrix; 
-    while (file >> matrix){
-        while((matrix.back()) != ']'){file >> matrix;} 
-        inputReaderVec.push_back(matrix);
-        
-        file >> matrix; 
+    string line; 
+    string temp; 
+    string temp2; 
 
-        while((matrix.back()) != ']'){file >> matrix;} 
-        inputReaderVec.push_back(matrix);
-        break; 
+    while (!file.eof()){
+        cout << "test"; 
+        getline(file,line); 
+        for(int i = 0; i<line.size(); i++){
+            temp = string(1,line[i]); 
+            if(temp != "[" || temp != "]" || temp != ","){
+                temp2 += temp; 
+            } 
+            if (temp == ";"){ break; }
+        }
+
     }
-    cout << inputReaderVec[0] << endl; 
-    cout << inputReaderVec[1] << endl; 
+    cout << temp2; 
+    // return matrix:row:col:value 
+
     return inputReaderVec; 
 }
 
