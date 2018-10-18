@@ -13,7 +13,8 @@ void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector
 
 
 int main(){
-    int numberOfMachines = 4; 
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+    int numberOfMachines = 3; 
 
     thread machines[numberOfMachines];
     ifstream file;
@@ -98,7 +99,9 @@ int main(){
 
     //output 
     output(keyValueFinal);
-  
+    
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+    cout << chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
     return 0; 
 }
 

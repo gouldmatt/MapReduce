@@ -42,7 +42,7 @@ void output(vector< pair <string,int> > primesReduced){
     for (int i=0; i<primesReduced.size(); i++) 
     { 
         if(primesReduced[i].second > 0){
-            cout << "Prime Number " << primesReduced[i].first << " appeared " << primesReduced[i].second << " times\n"; 
+            //cout << "Prime Number " << primesReduced[i].first << " appeared " << primesReduced[i].second << " times\n"; 
         }
     }
 }
