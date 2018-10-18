@@ -28,16 +28,22 @@ pair <string,int> map(string number){
 }
 
 pair <string,int> reduce(vector< pair <string,int> > wordPairGroup){
-
-    return std::pair<string,int>(wordPairGroup[0].first,wordPairGroup.size());
+    int frequency = 0; 
+    if(wordPairGroup[0].second == 1){
+        frequency = wordPairGroup.size(); 
+    }else{
+        frequency = 0; 
+    }
+    return std::pair<string,int>(wordPairGroup[0].first,frequency);
 }
 
 void output(vector< pair <string,int> > primesReduced){
     for (int i=0; i<primesReduced.size(); i++) 
     { 
-        cout << "Prime Number " << primesReduced[i].first << " appeared " << primesReduced[i].second << " times\n"; 
+        if(primesReduced[i].second > 0){
+            cout << "Prime Number " << primesReduced[i].first << " appeared " << primesReduced[i].second << " times\n"; 
+        }
     }
-    cout << "hello";
 }
 
 bool isPrime(int num){
