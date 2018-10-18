@@ -16,12 +16,13 @@ vector<string> inputReader(ifstream& file){
 }
 
 pair <string,int> map(string number){
-    bool prime = 0; 
-    if(isPrime(stol(number))){
+    int prime = 0; 
+    int numberInt = stoi(number); 
+    if(isPrime(numberInt)){
         prime = 1; 
     }else{
         prime = 0; 
-        number = nullptr; 
+        number = "0"; 
     }
 
     return std::pair<string,int>(number, prime);
@@ -56,4 +57,5 @@ bool isPrime(int num){
             prime = false;
         }     
     }
+    return prime ;
 }
