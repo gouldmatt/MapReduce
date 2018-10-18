@@ -4,7 +4,7 @@
 #include <thread> 
 #include <algorithm> 
 //#include "guestWordCount.hpp"
-#include "guestMatrixMultiply.hpp"
+#include "guestPrimeNumber.hpp"
 
 using namespace std;
 
@@ -28,7 +28,7 @@ int main(){
     int groupNum = 0;
 
     // read the input file and feed it into the input reader
-    file.open("./matrixTest.txt"); 
+    file.open("./primeTest.txt"); 
     if (!file){
         cerr << "Unable to open file";
         exit(1);    
@@ -37,7 +37,7 @@ int main(){
     //Extract the words
     inputReaderVec = inputReader(file);
     file.close(); 
-    /*
+    
     inputReaderVecSize = inputReaderVec.size(); 
   
     // start multithreading
@@ -100,7 +100,6 @@ int main(){
     output(keyValueFinal);
   
     return 0; 
-    */
 }
 
 void machineMap(vector< pair <string,int> > &keyValuePair, vector<string>& inputReaderVec,int inputReaderVecSize,int machineNum,int numberOfMachines){
