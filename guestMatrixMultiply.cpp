@@ -38,7 +38,7 @@ vector<string> inputReader(ifstream& file){
     }
 
     for(int i; i<inputReaderVec.size(); i++){
-        cout << inputReaderVec[i] << endl; 
+        cout << inputReaderVec[i] << endl;
     }
         
     return inputReaderVec; 
