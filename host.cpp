@@ -14,7 +14,7 @@ void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector
 
 int main(){
     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
-    int numberOfMachines = 3; 
+    int numberOfMachines = 2; 
 
     thread machines[numberOfMachines];
     ifstream file;
