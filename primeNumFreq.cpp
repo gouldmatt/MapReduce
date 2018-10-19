@@ -2,12 +2,15 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
 
 bool isPrime(int num);
 
+
 int main(){
+    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
     ifstream f;
     vector<int> inputReaderVec;
     vector< pair <int,int> > primeFreq; // first int is the prime num, second int is its freq
@@ -46,10 +49,12 @@ int main(){
 
     for (int i=0; i<primeFreq.size(); i++) 
     { 
-        cout << "\"" << primeFreq[i].first << "\""
-        << " appeared " << primeFreq[i].second << " times.\n"; 
+        //cout << "\"" << primeFreq[i].first << "\""
+        //<< " appeared " << primeFreq[i].second << " times.\n"; 
     } 
-   
+    
+    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+    cout << chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
     return 0;
 }
 

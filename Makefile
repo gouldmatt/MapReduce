@@ -10,9 +10,9 @@ outputWord.o: host.o guestWordCount.o
 	g++  -std=c++11 -pthread host.o guestWordCount.o -o output
 	time ./outputWord
 
-outputMatrix.o: host.o guestMatrixMultiply.o
-	g++  -std=c++11 -pthread host.o guestMatrixMultiply.o -o outputMatrix
-	time ./outputMatrix
+primes: host.o guestPrimeNumber.o host.cpp guestPrimeNumber.cpp guestPrimeNumber.hpp
+	g++  -std=c++11 -pthread host.o guestPrimeNumber.o -o guestPrimeNumber
+	time ./guestPrimeNumber
 
 host.o: host.cpp
 	g++ -std=c++11 -pthread -c host.cpp
@@ -20,8 +20,8 @@ host.o: host.cpp
 guestWordCount.o: guestWordCount.cpp guestWordCount.hpp
 	g++ -std=c++11 -pthread -c guestWordCount.cpp
 
-guestMatrixMultiply.o: guestMatrixMultiply.cpp guestMatrixMultiply.hpp
-	g++ -std=c++11 -pthread -c guestMatrixMultiply.cpp
+guestPrimeNumber.o: guestPrimeNumber.cpp guestPrimeNumber.hpp
+	g++ -std=c++11 -pthread -c guestPrimeNumber.cpp
 
 clean:
 	rm *.o output
