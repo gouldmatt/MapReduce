@@ -1,9 +1,6 @@
 #target: dependencies
 #	action
 
-# compiler flags:
-#  -g    adds debugging information to the executable file
-#  -Wall turns on most, but not all, compiler warnings
 CFLAGS  = -Wall -std=c++11
 
 output: host.o guestWordCount.o
