@@ -1,7 +1,7 @@
 #include <iostream> 
 #include <fstream>
 #include <vector>
-#include <thread> 
+#include <omp.h>
 #include <algorithm> 
 #include "guestWordCount.hpp"
 
@@ -12,10 +12,8 @@ void machineReduce(vector< pair <string,int> > &wordPairsReduced,vector < vector
 
 
 int main(){
-    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+   
     int numberOfMachines = 2; 
-
-    thread machines[numberOfMachines];
     ifstream file;
     vector<string> inputReaderVec;
     vector< pair <string,int> > keyValue[numberOfMachines]; //(key,value)
@@ -41,16 +39,12 @@ int main(){
     inputReaderVecSize = inputReaderVec.size(); 
   
     // start multithreading
+    #pragma omp parallel for num_threads(3)
     for(int i=0; i<numberOfMachines; i++){ 
-       machines[i]=thread(machineMap,std::ref(keyValue[i]),std::ref(inputReaderVec),inputReaderVecSize,i,numberOfMachines);
+       machineMap(keyValue[i],inputReaderVec,inputReaderVecSize,i,numberOfMachines);
     }
 
     inputReaderVec.clear(); 
-
-    // stop multithreading
-    for(int i=0; i<numberOfMachines; i++){
-        machines[i].join();
-    }
 
     // place into one total vector
     for (int i=0; i<numberOfMachines; i++){
@@ -77,16 +71,12 @@ int main(){
     totalKeyValue.clear(); 
     
     // start multithreading
+    #pragma omp parallel for num_threads(3)
     for(int i=0; i<numberOfMachines; i++){ 
-       machines[i]=thread(machineReduce,std::ref(keyValueReduced[i]),groupedKeyValue,i,numberOfMachines);
+       machineReduce(keyValueReduced[i],groupedKeyValue,i,numberOfMachines);
     }
 
     groupedKeyValue.clear(); 
-
-    // stop multithreading
-    for(int i=0; i<numberOfMachines; i++){
-        machines[i].join();
-    }
     
     // place into one total final vector 
     for (int i=0; i<numberOfMachines; i++){
@@ -99,8 +89,6 @@ int main(){
     //output 
     output(keyValueFinal);
     
-    chrono::steady_clock::time_point end = chrono::steady_clock::now();
-    cout << chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
     return 0; 
 }
 
