@@ -4,14 +4,14 @@
 CFLAGS  = -Wall -std=c++11
 
 output: host.o guestWordCount.o
-	g++  -std=c++11 host.o guestWordCount.o -o output -fopenmp -lpthread
+	g++ host.o guestWordCount.o -o output -Xpreprocessor -fopenmp -lomp
 	./output
 
 host.o: host.cpp
-	g++ -std=c++11 -c host.cpp -fopenmp -lpthread
+	g++ -c host.cpp -Xpreprocessor -fopenmp
 
 guestWordCount.o: guestWordCount.cpp guestWordCount.hpp
-	g++ -std=c++11 -c guestWordCount.cpp -fopenmp -lpthread
+	g++ -c guestWordCount.cpp 
 
 clean:
 	rm *.o output

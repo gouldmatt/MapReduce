@@ -56,14 +56,14 @@ int main(){
 
     sort(totalKeyValue.begin(), totalKeyValue.end());
 
-    groupedKeyValue.push_back(vector <pair<string,int>>());
+    groupedKeyValue.push_back(vector <pair<string,int> >());
     // create groups with common keys 
     for(int i=0; i<totalKeyValue.size(); i++){
         groupedKeyValue[groupNum].push_back(pair<string,int>(totalKeyValue[i].first,totalKeyValue[i].second));
         if((totalKeyValue[i] != totalKeyValue[i+1]) || i == totalKeyValue.size()-1 ){
             groupNum++; 
             if(i != totalKeyValue.size()-1){
-                groupedKeyValue.push_back(vector <pair<string,int>>());
+                groupedKeyValue.push_back(vector <pair<string,int> >());
             }
         }
     }
